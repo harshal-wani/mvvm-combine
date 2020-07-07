@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Dashboard View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="DashboardViewController" id="BYZ-38-t0r" customClass="DashboardViewController" customModule="WordGame" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select words to start game." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ofB-wm-GXP">
+                                <rect key="frame" x="50.5" y="152" width="313" height="25.5"/>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="20"/>
+                                <color key="textColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="fpu-pl-ecr">
+                                <rect key="frame" x="100" y="197.5" width="214" height="175"/>
+                                <subviews>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kZo-Xc-7ET">
+                                        <rect key="frame" x="0.0" y="0.0" width="214" height="45"/>
+                                        <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="25"/>
+                                        <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="10 words">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="wordsNumButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TY0-Lg-b5e"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NrV-qe-Rbg">
+                                        <rect key="frame" x="0.0" y="65" width="214" height="45"/>
+                                        <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="25"/>
+                                        <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="20 words">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="wordsNumButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5Fs-oT-87w"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Za8-9d-Wyb">
+                                        <rect key="frame" x="0.0" y="130" width="214" height="45"/>
+                                        <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="25"/>
+                                        <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="30 words">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="wordsNumButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5CP-dF-WHB"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tKG-OX-117">
+                                <rect key="frame" x="128" y="422.5" width="158" height="51"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="30"/>
+                                <state key="normal" title="Start Game"/>
+                                <connections>
+                                    <action selector="startButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iyf-Qg-y5y"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="tKG-OX-117" firstAttribute="top" secondItem="fpu-pl-ecr" secondAttribute="bottom" constant="50" id="AdK-2y-Tf2"/>
+                            <constraint firstItem="fpu-pl-ecr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="AnX-Ae-SbD"/>
+                            <constraint firstItem="tKG-OX-117" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="IAa-Ap-Lhb"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fpu-pl-ecr" secondAttribute="trailing" constant="100" id="Vol-lV-PMt"/>
+                            <constraint firstItem="fpu-pl-ecr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="ZsL-R6-BnC"/>
+                            <constraint firstItem="tKG-OX-117" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="dNV-nA-XEd"/>
+                            <constraint firstItem="ofB-wm-GXP" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eCM-VW-9DL"/>
+                            <constraint firstItem="fpu-pl-ecr" firstAttribute="top" secondItem="ofB-wm-GXP" secondAttribute="bottom" constant="20" id="gdN-RH-1Xx"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="optionOneButton" destination="kZo-Xc-7ET" id="gOB-CL-9cW"/>
+                        <outlet property="optionThreeButton" destination="Za8-9d-Wyb" id="ug0-U5-Xqv"/>
+                        <outlet property="optionTwoButton" destination="NrV-qe-Rbg" id="goA-4x-xJu"/>
+                        <outlet property="startButton" destination="tKG-OX-117" id="eyY-cH-Rds"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="139" y="115"/>
+        </scene>
+        <!--Word Game View Controller-->
+        <scene sceneID="v5K-5u-iaP">
+            <objects>
+                <viewController storyboardIdentifier="WordGameViewController" id="irF-PM-HLy" customClass="WordGameViewController" customModule="WordGame" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="v8V-sO-0vs">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ztt-jj-kw4">
+                                <rect key="frame" x="354" y="44" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="ELH-i5-rKq"/>
+                                    <constraint firstAttribute="width" constant="40" id="fTT-5N-r12"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="ic_quit">
+                                    <color key="titleColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="quitButtonTapped:" destination="irF-PM-HLy" eventType="touchUpInside" id="uaN-wu-jRn"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yfx-xb-kNa">
+                                <rect key="frame" x="20" y="782" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="ic_true">
+                                    <color key="titleColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="answerButtonTapped:" destination="irF-PM-HLy" eventType="touchUpInside" id="U2W-Qa-Ydr"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TAA-cj-MAh">
+                                <rect key="frame" x="314" y="782" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="ic_false">
+                                    <color key="titleColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="answerButtonTapped:" destination="irF-PM-HLy" eventType="touchUpInside" id="I6o-fI-6Un"/>
+                                </connections>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="uNf-Oc-Dqr">
+                                <rect key="frame" x="20" y="161.5" width="374" height="52"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="8pA-Qi-rsa">
+                                        <rect key="frame" x="0.0" y="0.0" width="67.5" height="52"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Correct" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uK5-HU-II3">
+                                                <rect key="frame" x="0.0" y="0.0" width="67.5" height="26"/>
+                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                                <color key="textColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bPN-0N-Pff">
+                                                <rect key="frame" x="16" y="26" width="35.5" height="26"/>
+                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                                <color key="textColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="P31-eu-klX">
+                                        <rect key="frame" x="168" y="0.0" width="63" height="52"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrong" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4aq-lt-Urn">
+                                                <rect key="frame" x="0.0" y="0.0" width="63" height="26"/>
+                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                                <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lOG-s7-ApP">
+                                                <rect key="frame" x="14" y="26" width="35.5" height="26"/>
+                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                                <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="fcO-Ol-rQV">
+                                        <rect key="frame" x="331.5" y="0.0" width="42.5" height="52"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N/A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rJl-no-0a9">
+                                                <rect key="frame" x="0.0" y="0.0" width="42.5" height="26"/>
+                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                                <color key="textColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w0B-6a-92l">
+                                                <rect key="frame" x="3.5" y="26" width="35.5" height="26"/>
+                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                                <color key="textColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language word" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="056-vx-1W8">
+                                <rect key="frame" x="20" y="349.5" width="374" height="32.5"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="25"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Translated Word" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3VN-hm-fZe">
+                                <rect key="frame" x="20" y="432" width="374" height="32.5"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="25"/>
+                                <color key="textColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Bd-k6-AM0">
+                                <rect key="frame" x="184" y="313.5" width="46.5" height="26"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                <color key="textColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Dh0-iq-1hm">
+                                <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
+                                <color key="color" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Dh0-iq-1hm" firstAttribute="centerY" secondItem="v8V-sO-0vs" secondAttribute="centerY" id="4BM-8e-fWL"/>
+                            <constraint firstItem="3VN-hm-fZe" firstAttribute="centerY" secondItem="v8V-sO-0vs" secondAttribute="centerY" id="6kV-L8-Wwl"/>
+                            <constraint firstItem="Dh0-iq-1hm" firstAttribute="centerX" secondItem="v8V-sO-0vs" secondAttribute="centerX" id="8Bp-I6-Lf4"/>
+                            <constraint firstItem="I9p-1G-KJc" firstAttribute="trailing" secondItem="3VN-hm-fZe" secondAttribute="trailing" constant="20" id="DCR-Kf-Dtp"/>
+                            <constraint firstItem="I9p-1G-KJc" firstAttribute="trailing" secondItem="ztt-jj-kw4" secondAttribute="trailing" constant="20" id="DRS-Dy-ToE"/>
+                            <constraint firstItem="3VN-hm-fZe" firstAttribute="leading" secondItem="I9p-1G-KJc" secondAttribute="leading" constant="20" id="G1n-0M-pPg"/>
+                            <constraint firstItem="056-vx-1W8" firstAttribute="top" secondItem="0Bd-k6-AM0" secondAttribute="bottom" constant="10" id="Vhk-QI-7tH"/>
+                            <constraint firstItem="I9p-1G-KJc" firstAttribute="trailing" secondItem="056-vx-1W8" secondAttribute="trailing" constant="20" id="Yp9-zH-6WI"/>
+                            <constraint firstItem="I9p-1G-KJc" firstAttribute="trailing" secondItem="uNf-Oc-Dqr" secondAttribute="trailing" constant="20" id="cKS-jr-iXT"/>
+                            <constraint firstItem="3VN-hm-fZe" firstAttribute="top" secondItem="056-vx-1W8" secondAttribute="bottom" constant="50" id="gZR-6N-sOH"/>
+                            <constraint firstItem="3VN-hm-fZe" firstAttribute="centerX" secondItem="v8V-sO-0vs" secondAttribute="centerX" id="jiK-jE-mZv"/>
+                            <constraint firstItem="056-vx-1W8" firstAttribute="leading" secondItem="I9p-1G-KJc" secondAttribute="leading" constant="20" id="mWl-po-8xA"/>
+                            <constraint firstItem="0Bd-k6-AM0" firstAttribute="centerX" secondItem="v8V-sO-0vs" secondAttribute="centerX" id="o8w-wN-zo3"/>
+                            <constraint firstItem="ztt-jj-kw4" firstAttribute="top" secondItem="I9p-1G-KJc" secondAttribute="top" id="xiq-2G-gE8"/>
+                            <constraint firstItem="0Bd-k6-AM0" firstAttribute="top" secondItem="uNf-Oc-Dqr" secondAttribute="bottom" constant="100" id="zPS-21-Gjg"/>
+                            <constraint firstItem="uNf-Oc-Dqr" firstAttribute="leading" secondItem="I9p-1G-KJc" secondAttribute="leading" constant="20" id="zRA-dn-cIp"/>
+                            <constraint firstItem="056-vx-1W8" firstAttribute="centerX" secondItem="v8V-sO-0vs" secondAttribute="centerX" id="zdX-c4-8pU"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="I9p-1G-KJc"/>
+                    </view>
+                    <connections>
+                        <outlet property="activityIndicatorView" destination="Dh0-iq-1hm" id="iJW-1J-IkY"/>
+                        <outlet property="correctAnsButton" destination="yfx-xb-kNa" id="5ST-Rs-N4B"/>
+                        <outlet property="correctLabel" destination="bPN-0N-Pff" id="b4D-cy-g3g"/>
+                        <outlet property="langWordLabel" destination="056-vx-1W8" id="sHA-jd-xHQ"/>
+                        <outlet property="notAnsLabel" destination="w0B-6a-92l" id="mIl-4X-JKh"/>
+                        <outlet property="quesTotalLabel" destination="0Bd-k6-AM0" id="Mkn-vY-prZ"/>
+                        <outlet property="translatedWordLabel" destination="3VN-hm-fZe" id="ODG-5k-5JA"/>
+                        <outlet property="wrongAnsButton" destination="TAA-cj-MAh" id="8VO-3I-mff"/>
+                        <outlet property="wrongLabel" destination="lOG-s7-ApP" id="ofN-VX-cFA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qbI-IL-L3E" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="834.78260869565224" y="114.50892857142857"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="ic_false" width="256" height="256"/>
+        <image name="ic_quit" width="256" height="256"/>
+        <image name="ic_true" width="256" height="256"/>
+    </resources>
+</document>
