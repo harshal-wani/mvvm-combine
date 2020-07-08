@@ -11,7 +11,7 @@ import Foundation
 /// API Constants
 struct BaseUrl {
     static let scheme = "https"
-    static let host = "github.com"
+    static let host = "raw.githubusercontent.com"
 }
 
 /// HTTPMethod type

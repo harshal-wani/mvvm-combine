@@ -14,9 +14,9 @@ class AbstractViewModel {
 
     init() {
         // For live API services
-//        self.apiService = APIService()
+        self.apiService = APIService()
 
         //For Mock API services
-        self.apiService = MockAPIService()
+//        self.apiService = MockAPIService()
     }
 }
