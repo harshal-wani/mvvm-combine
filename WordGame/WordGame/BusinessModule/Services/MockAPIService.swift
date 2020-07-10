@@ -14,13 +14,14 @@ final class MockAPIService: APIServiceProtocol {
     func getDataFromURL(_ endPoint: EndPoint) -> AnyPublisher<Data, APIError> {
 
         return Future<Data, APIError> { promise in
-
-            let url = Bundle.main.url(forResource: "words", withExtension: "json")!
-            do {
-                let data = try Data(contentsOf: url)
-                promise(.success(data))
-            } catch {
-                promise(.failure(APIError.decodeError))
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                let url = Bundle.main.url(forResource: "words", withExtension: "json")!
+                do {
+                    let data = try Data(contentsOf: url)
+                    promise(.success(data))
+                } catch {
+                    promise(.failure(APIError.decodeError))
+                }
             }
         }
         .receive(on: DispatchQueue.main)

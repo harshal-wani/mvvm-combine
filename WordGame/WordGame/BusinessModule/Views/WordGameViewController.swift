@@ -45,13 +45,7 @@ final class WordGameViewController: UIViewController, Storyboarded {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpBindings()
-
-        //IMPORTANT: As loading Mock data, temporary delay to see UI changes on states change
-        //Remove when live API is set
-
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.viewModel.getWords(extractOnly: self.noOfWords)
-//        }
+        self.viewModel.getWords(extractOnly: self.noOfWords)
         self.registerTextChangeObserver()
     }
 
