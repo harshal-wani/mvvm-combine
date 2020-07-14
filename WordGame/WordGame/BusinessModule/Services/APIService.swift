@@ -9,13 +9,73 @@
 import Foundation
 import Combine
 
+///API Error mapping
+enum APIError: String, Error {
+    case invalidURL             = "Invalid url"
+    case invalidResponse        = "Invalid response"
+    case decodeError            = "Decode error"
+    case pageNotFound           = "Requested page not found!"
+    case noData                 = "Oops! No words found."
+    case noNetwork              = "Internet connection not available!"
+    case unknownError           = "Unknown error"
+    case serverError            = "Server not found, operation could't not be completed!"
+
+    static func checkErrorCode(_ errorCode: Int = 0) -> APIError {
+        switch errorCode {
+        case 400:
+            return .invalidURL
+        case 500:
+            return .serverError
+        case 404:
+            return .pageNotFound
+        default:
+            return .unknownError
+        }
+    }
+
+    static func parseDecodingError(_ error: DecodingError) -> String {
+        var errorToReport = error.localizedDescription
+        switch error {
+        case .dataCorrupted(let context):
+            let details = context.underlyingError?.localizedDescription ?? context.codingPath.map { $0.stringValue }
+                .joined(separator: ".")
+            errorToReport = "\(context.debugDescription) - (\(details))"
+        case .keyNotFound(let key, let context):
+            let details = context.underlyingError?.localizedDescription ?? context.codingPath.map { $0.stringValue }
+                .joined(separator: ".")
+            errorToReport = "\(context.debugDescription) (key: \(key), \(details))"
+        case .typeMismatch(let type, let context), .valueNotFound(let type, let context):
+            let details = context.underlyingError?.localizedDescription ?? context.codingPath.map { $0.stringValue }
+                .joined(separator: ".")
+            errorToReport = "\(context.debugDescription) (type: \(type), \(details))"
+        @unknown default:
+            break
+        }
+        return errorToReport
+    }
+}
+
 protocol APIServiceProtocol {
-    func fetch(_ endPoint: EndPoint) -> AnyPublisher<Data, APIError>
+    func fetch<T: Decodable>(_ endPoint: EndPoint) -> AnyPublisher<T, APIError>
 }
 
 final class APIService: APIServiceProtocol {
 
-    func fetch(_ endPoint: EndPoint) -> AnyPublisher<Data, APIError> {
+    func fetch<T: Decodable>(_ endPoint: EndPoint) -> AnyPublisher<T, APIError> {
+        fetch(endPoint)
+            .decode(type: T.self, decoder: JSONDecoder())
+            .mapError { error in
+                if let err = error as? DecodingError {
+                    return APIError(rawValue: APIError.parseDecodingError(err))!
+                } else {
+                    return APIError.unknownError
+                }
+            }
+            .eraseToAnyPublisher()
+    }
+
+    // MARK: - Private
+    private func fetch(_ endPoint: EndPoint) -> AnyPublisher<Data, APIError> {
 
         guard let url = endPoint.url else {
             return Fail(error: .invalidURL)

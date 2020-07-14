@@ -98,7 +98,7 @@ final class WordGameViewModel: AbstractViewModel {
     func getWords(extractOnly noOfWords: Int? = 0) {
         gameState.value = .loading
 
-        let wordsCompletionHandler: (Subscribers.Completion<APIError>) -> Void = { [weak self] completion in
+        let completionHandler: (Subscribers.Completion<APIError>) -> Void = { [weak self] completion in
             switch completion {
             case .failure(let error):
                 self?.gameState.value = .error(error)
@@ -108,26 +108,20 @@ final class WordGameViewModel: AbstractViewModel {
             }
         }
 
-        let wordsValueHandler: (Data) -> Void = { [weak self] (data) in
-            do {
-                let response = try JSONDecoder().decode([Word].self, from: data)
+        let valueHandler: ([Word]) -> Void = { [weak self] (response) in
 
-                guard !response.isEmpty else {
-                    self?.gameState.value = .error(APIError.noData)
-                    return
-                }
-                // Extract only no of words is valid
-                self?.wordViewModels = (noOfWords != 0) ? response.prefix(noOfWords!).map {
-                    WordViewModel(word: $0) } : response.map { WordViewModel(word: $0)
-                }
-
-            } catch {
-                self?.gameState.value = .error(APIError.decodeError)
+            guard !response.isEmpty else {
+                self?.gameState.value = .error(APIError.noData)
+                return
+            }
+            // Extract only no of words is valid
+            self?.wordViewModels = (noOfWords != 0) ? response.prefix(noOfWords!).map {
+                WordViewModel(word: $0) } : response.map { WordViewModel(word: $0)
             }
         }
 
         self.apiService.fetch(.words())
-            .sink(receiveCompletion: wordsCompletionHandler, receiveValue: wordsValueHandler)
+            .sink(receiveCompletion: completionHandler, receiveValue: valueHandler)
             .store(in: &bindings)
     }
 }
