@@ -31,7 +31,7 @@ struct EndPoint {
 }
 
 extension EndPoint {
-    static func requestWords() -> EndPoint {
+    static func words() -> EndPoint {
         return EndPoint(method: .get, path: "/harshal-wani/mvvm-combine/master/words.json")
     }
 }

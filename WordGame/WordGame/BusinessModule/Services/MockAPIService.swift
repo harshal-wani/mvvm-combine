@@ -11,7 +11,7 @@ import Combine
 
 final class MockAPIService: APIServiceProtocol {
 
-    func getDataFromURL(_ endPoint: EndPoint) -> AnyPublisher<Data, APIError> {
+    func fetch(_ endPoint: EndPoint) -> AnyPublisher<Data, APIError> {
 
         return Future<Data, APIError> { promise in
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {

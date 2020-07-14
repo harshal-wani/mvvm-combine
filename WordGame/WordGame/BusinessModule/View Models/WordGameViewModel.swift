@@ -126,7 +126,7 @@ final class WordGameViewModel: AbstractViewModel {
             }
         }
 
-        self.apiService.getDataFromURL(.requestWords())
+        self.apiService.fetch(.words())
             .sink(receiveCompletion: wordsCompletionHandler, receiveValue: wordsValueHandler)
             .store(in: &bindings)
     }

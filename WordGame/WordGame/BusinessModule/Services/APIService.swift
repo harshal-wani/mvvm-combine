@@ -10,51 +10,45 @@ import Foundation
 import Combine
 
 protocol APIServiceProtocol {
-    func getDataFromURL(_ endPoint: EndPoint) -> AnyPublisher<Data, APIError>
+    func fetch(_ endPoint: EndPoint) -> AnyPublisher<Data, APIError>
 }
 
 final class APIService: APIServiceProtocol {
 
-    func getDataFromURL(_ endPoint: EndPoint) -> AnyPublisher<Data, APIError> {
+    func fetch(_ endPoint: EndPoint) -> AnyPublisher<Data, APIError> {
 
-        var dataTask: URLSessionDataTask?
+        guard let url = endPoint.url else {
+            return Fail(error: .invalidURL)
+                .eraseToAnyPublisher()
+        }
+        /// Check is internet available
+        if !Utilities.isInternetAvailable() {
+            return Fail(error: .noNetwork)
+                .eraseToAnyPublisher()
+        }
+        /// Set URLRequest and type
+        var request = URLRequest(url: url)
+        request.httpMethod = endPoint.method.rawValue
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        if let data = endPoint.data {
+            request.httpBody = data
+        }
 
-        let onSubscription: (Subscription) -> Void = { _ in dataTask?.resume() }
-        let onCancel: () -> Void = { dataTask?.cancel() }
-
-        return Future<Data, APIError> { promise in
-
-            guard let url = endPoint.url else {
-                return promise(.failure(APIError.invalidURL))
-            }
-            /// Check is internet available
-            if !Utilities.isInternetAvailable() {
-                promise(.failure(APIError.noNetwork))
-                return
-            }
-            /// Set URLRequest and type
-            var request = URLRequest(url: url)
-            request.httpMethod = endPoint.method.rawValue
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            if let data = endPoint.data {
-                request.httpBody = data
-            }
-
-            dataTask = URLSession.shared.dataTask(with: request) { (data, response, _) in
-
-                guard let statusCode = (response as? HTTPURLResponse)?.statusCode, 200..<299 ~= statusCode else {
-                    promise(.failure(APIError.checkErrorCode((response as? HTTPURLResponse)!.statusCode)))
-                    return
+        return URLSession.shared
+            .dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                guard let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else {
+                    throw (APIError.checkErrorCode((response as? HTTPURLResponse)!.statusCode))
                 }
-                guard data != nil else {
-                    promise(.failure(APIError.noData))
-                    return
-                }
-
-                promise(.success(data!))
+                return data
+        }
+        .mapError { error in
+            if let error = error as? APIError {
+                return error
+            } else {
+                return .unknownError
             }
         }
-        .handleEvents(receiveSubscription: onSubscription, receiveCancel: onCancel)
         .receive(on: DispatchQueue.main)
         .eraseToAnyPublisher()
     }
