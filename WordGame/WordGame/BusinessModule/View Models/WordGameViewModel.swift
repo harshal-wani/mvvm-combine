@@ -25,18 +25,11 @@ enum AnswerAction {
 final class WordGameViewModel: AbstractViewModel {
 
     /// Local
-    private(set) var wordViewModels: [WordViewModel] = []
+    private(set) var words: [Word] = []
     private var quesNumber = 0
 
     ///Publisher and Actions
-    let correctAnsCount = CurrentValueSubject<Int, Never>(0)
-    let wrongAnsCount = CurrentValueSubject<Int, Never>(0)
-    let notAnsCount = CurrentValueSubject<Int, Never>(0)
-
-    let quesTotal = CurrentValueSubject<String?, Never>(nil)
-    let langOne = CurrentValueSubject<String?, Never>(nil)
-    let langTwo = CurrentValueSubject<String?, Never>(nil)
-
+    @Published var userScore: UserScore = UserScore()
     let gameState = CurrentValueSubject<GameState, Never>(.loading)
     let answerAction = PassthroughSubject<AnswerAction, Never>()
 
@@ -45,10 +38,10 @@ final class WordGameViewModel: AbstractViewModel {
     // MARK: - Init
     override init() {
         super.init()
-
-        answerAction.sink(receiveValue: { [weak self] action in
-            self?.updateScore(action)
-        })
+        answerAction
+            .sink(receiveValue: { [weak self] action in
+                self?.updateScore(action)
+            })
             .store(in: &bindings)
     }
 
@@ -58,26 +51,26 @@ final class WordGameViewModel: AbstractViewModel {
     /// - Parameter action: Answer type
     private func updateScore(_ action: AnswerAction) {
 
-        let wordViewModel = self.wordViewModels[quesNumber]
+        let word = self.words[quesNumber]
 
         switch action {
         case .correct:
-            if wordViewModel.isTranslationCorrect == action {
-                correctAnsCount.value += 1
+            if word.isTranslationCorrect == action {
+                userScore.correctCount += 1
             } else {
-                wrongAnsCount.value += 1
+                userScore.wrongCount += 1
             }
         case .wrong:
-            if wordViewModel.isTranslationCorrect == action {
-                correctAnsCount.value += 1
+            if word.isTranslationCorrect == action {
+                userScore.correctCount += 1
             } else {
-                wrongAnsCount.value += 1
+                userScore.wrongCount += 1
             }
         case .notAnswered:
-            notAnsCount.value += 1
+            userScore.noAnsCount += 1
         }
 
-        if quesNumber != self.wordViewModels.count-1 {
+        if quesNumber != self.words.count-1 {
             quesNumber += 1
             updateQuestion()
         } else {
@@ -86,9 +79,9 @@ final class WordGameViewModel: AbstractViewModel {
     }
 
     private func updateQuestion() {
-        quesTotal.value = "\(quesNumber+1)/\(wordViewModels.count)"
-        langOne.value = wordViewModels[quesNumber].langOneWord
-        langTwo.value = wordViewModels[quesNumber].langTranslatedWord
+        userScore.questionNumber = "\(quesNumber+1)/\(words.count)"
+        userScore.langOne = words[quesNumber].langOneWord
+        userScore.langTwo = words[quesNumber].langTwoWord
     }
 
     // MARK: - Public
@@ -115,9 +108,9 @@ final class WordGameViewModel: AbstractViewModel {
                 return
             }
             // Extract only no of words is valid
-            self?.wordViewModels = (noOfWords != 0) ? response.prefix(noOfWords!).map {
-                WordViewModel(word: $0) } : response.map { WordViewModel(word: $0)
-            }
+            self?.words = (noOfWords != 0)
+                ? response.prefix(noOfWords!).map { $0 }
+                : response.map { $0 }
         }
 
         self.apiService.fetch(.words())
@@ -126,17 +119,15 @@ final class WordGameViewModel: AbstractViewModel {
     }
 }
 
-struct WordViewModel {
+struct UserScore {
 
-    let langOneWord: String
-    let langTranslatedWord: String
-    let isTranslationCorrect: AnswerAction
+    var correctCount = 0
+    var wrongCount = 0
+    var noAnsCount = 0
 
-    init(word: Word) {
-        langOneWord = word.langOneWord
-        langTranslatedWord = word.langTwoWord
+    var questionNumber = ""
+    var langOne = ""
+    var langTwo = ""
 
-        //IMPORTANT: Set is translation true/false randomly
-        isTranslationCorrect = (Bool.random() == true) ? .correct : .wrong
-    }
+    init() { }
 }

@@ -39,7 +39,6 @@ final class WordGameViewController: UIViewController, Storyboarded {
 
     /// Publishers and Actions
     private var bindings = Set<AnyCancellable>()
-    private var cancelables: [AnyCancellable] = []
 
     // MARK: - View life cyle
     override func viewDidLoad() {
@@ -61,10 +60,10 @@ final class WordGameViewController: UIViewController, Storyboarded {
                                     message: LocalizableStrings.quitGame,
                                     cancelButton: LocalizableStrings.cancel,
                                     otherButtons: [LocalizableStrings.yes]) { [weak self] str in
-            if str == LocalizableStrings.yes {
-                self?.viewModel.bindings.removeAll()
-                self?.wordGameVCDelegate?.back()
-            }
+                                        if str == LocalizableStrings.yes {
+                                            self?.viewModel.bindings.removeAll()
+                                            self?.wordGameVCDelegate?.back()
+                                        }
         }
     }
 }
@@ -87,10 +86,10 @@ extension WordGameViewController {
             case .loaded:
                 self?.updateUI(enable: true)
             case .finished:
+                self?.viewModel.bindings.removeAll()
                 UIAlertController.showAlert(title: LocalizableStrings.awesome,
                                             message: LocalizableStrings.gameFinishedMessage,
                                             cancelButton: LocalizableStrings.ok) { _ in
-                                                self?.viewModel.bindings.removeAll()
                                                 self?.wordGameVCDelegate?.back()
                 }
             case .error(let error):
@@ -103,31 +102,39 @@ extension WordGameViewController {
         }
 
         viewModel.gameState
-        .receive(on: RunLoop.main)
-        .sink(receiveValue: gameStateValueHandler)
-        .store(in: &bindings)
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: gameStateValueHandler)
+            .store(in: &bindings)
     }
 
     private func bindViewToViewModel() {
 
-        self.cancelables = [
-            viewModel.correctAnsCount.map {$0.description}.assign(to: \.text, on: correctLabel),
-            viewModel.wrongAnsCount.map {$0.description}.assign(to: \.text, on: wrongLabel),
-            viewModel.notAnsCount.map {$0.description}.assign(to: \.text, on: notAnsLabel),
-            viewModel.quesTotal.assign(to: \.text, on: quesTotalLabel),
-            viewModel.langOne.assign(to: \.text, on: langWordLabel),
-            viewModel.langTwo.assign(to: \.text, on: translatedWordLabel)
-        ]
+        viewModel.$userScore
+            .receive(on: DispatchQueue.main)
+            .debounce(for: .milliseconds(50), scheduler: RunLoop.main)
+            .sink(receiveValue: { [weak self] score in
+                print(score)
+                self?.correctLabel.text = score.correctCount.description
+                self?.wrongLabel.text = score.wrongCount.description
+                self?.notAnsLabel.text = score.noAnsCount.description
+                self?.quesTotalLabel.text = score.questionNumber
+                self?.langWordLabel.text = score.langOne
+                self?.translatedWordLabel.text = score.langTwo
+            })
+            .store(in: &bindings)
+
     }
 
     /// Register translatedWordLabel text change observer and animate it
     private func registerTextChangeObserver() {
 
-        translatedTextObserver = translatedWordLabel.observe(\.text) { [weak self] (_, _) in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                self?.animateFallDown { status in
-                    if !status {
-                        self?.viewModel.answerAction.send(.notAnswered)
+        translatedTextObserver = translatedWordLabel.observe(\.text) { [weak self] (label, _) in
+            if label.text != "" {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    self?.animateFallDown { status in
+                        if !status {
+                            self?.viewModel.answerAction.send(.notAnswered)
+                        }
                     }
                 }
             }
